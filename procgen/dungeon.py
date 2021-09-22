@@ -168,18 +168,37 @@ def generate(
     engine.rendering.debug_map(gm)
 
     # Add actors to rooms.
+    def generate_enemy_location(room):
+    # checks if an enemy is spawning on top of another one and if it is within range 
+        x=random.randint(room.center.x-room.width,room.center.x+room.width)
+        y=random.randint(room.center.y-room.height,room.center.y+room.height)
+        enemy_location=(x,y)
+        return enemy_location
+        #Returns a tupil 
+    def generate_random_enemy(number):
+        if number == 1: enemy=HeatBoltEnemy
+        elif number == 2: enemy=ColdBoltEnemy
+        elif number == 3: enemy=HunterEnemy
+        else: enemy=HeatBoltEnemy
+        return enemy
+        
+
     for room in rooms[1:-1]:
         if random.randint(0, 1):
             # gm.add_actor(engine.actor.Actor(*room.center)) #placeholder enemies.
             if level == 1:  # Acid level
                 if random.randint(0, 1):
-                    gm.add_actor(engine.actor.AcidBoltEnemy(*room.center))
-                else:
-                    gm.add_actor(engine.actor.HeatBoltEnemy(*room.center))
-            else:
-                gm.add_actor(engine.actor.ColdBoltEnemy(*room.center))
-        else:
-            gm.add_actor(engine.actor.HunterEnemy(*room.center))
+                    while x < random.randint(0,5): #2nd number must be lower than smallest room size
+                        flag=1
+                        occupied=[]
+                        pos_location = generate_enemy_location(room)
+                        for location in occupied:
+                            if pos_location == occupied[location]:
+                                flag = 0
+                        if flag != 0:
+                            enemy=generate_random_enemy(random.randint(1,3)
+                            gm.add_actor(engine.actor.enemy(pos_location))
+                            x+=1                      
         engine.rendering.debug_map(gm)
 
     # Add player to the first room.
