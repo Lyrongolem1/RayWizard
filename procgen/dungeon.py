@@ -179,7 +179,7 @@ def generate(
         if number == 1: enemy=HeatBoltEnemy
         elif number == 2: enemy=ColdBoltEnemy
         elif number == 3: enemy=HunterEnemy
-        else: enemy=HeatBoltEnemy
+        else: enemy=AcidBoltEnemy
         return enemy
         
 
